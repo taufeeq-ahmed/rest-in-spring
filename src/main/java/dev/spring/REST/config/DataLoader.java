@@ -24,20 +24,22 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List<Content> contentList = new ArrayList<>();
+        if (repository.count() == 0) {
+            List<Content> contentList = new ArrayList<>();
 
-        for (int i = 1; i <= 100; i++) {
-            Content c = new Content(
-                    null,
-                    "spring-boot-101__" + i,
-                    "My First app in spring boot__" + i,
-                    Status.IN_PROGRESS,
-                    Type.COURSE,
-                    LocalDateTime.now(),
-                    LocalDateTime.now());
-            contentList.add(c);
+            for (int i = 1; i <= 100; i++) {
+                Content c = new Content(
+                        null,
+                        "spring-boot-101__" + i,
+                        "My First app in spring boot__" + i,
+                        Status.IN_PROGRESS,
+                        Type.COURSE,
+                        LocalDateTime.now(),
+                        LocalDateTime.now());
+                contentList.add(c);
+            }
+
+            repository.saveAll(contentList);
         }
-
-        repository.saveAll(contentList);
     }
 }

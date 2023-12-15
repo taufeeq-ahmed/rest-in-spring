@@ -13,18 +13,27 @@ import jakarta.annotation.PostConstruct;
 
 @Repository
 public class ContentCollectionRepository {
-    private final List<Content> content = new ArrayList<Content>();
+    private final List<Content> contentList = new ArrayList<Content>();
 
     public ContentCollectionRepository() {
 
     }
 
     public List<Content> findAllContent() {
-        return content;
+        return contentList;
     }
 
     public Optional<Content> findContentById(Integer id) {
-        return content.stream().filter(c -> c.id().equals(id)).findFirst();
+        return contentList.stream().filter(c -> c.id().equals(id)).findFirst();
+    }
+
+    public void save(Content content) {
+        contentList.removeIf(c -> c.id().equals(content.id()));
+        contentList.add(content);
+    }
+
+    public boolean isExisting(Content content, Integer id) {
+        return contentList.stream().filter(c -> c.id().equals(id)).count() == 1;
     }
 
     @PostConstruct
@@ -38,6 +47,6 @@ public class ContentCollectionRepository {
                 LocalDateTime.now(),
                 LocalDateTime.now());
 
-        content.add(c);
+        contentList.add(c);
     }
 }

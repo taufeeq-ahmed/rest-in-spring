@@ -28,11 +28,16 @@ public class ContentCollectionRepository {
     }
 
     public void save(Content content) {
-        contentList.removeIf(c -> c.id().equals(content.id()));
         contentList.add(content);
     }
 
-    public boolean isExisting(Content content, Integer id) {
+    public Optional<Content> updateContent(Content content, Integer id) {
+        contentList.removeIf(c -> c.id().equals(id));
+        save(content);
+        return contentList.stream().filter(c -> c.id().equals(content.id())).findFirst();
+    }
+
+    public boolean isExisting(Integer id) {
         return contentList.stream().filter(c -> c.id().equals(id)).count() == 1;
     }
 

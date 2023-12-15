@@ -67,4 +67,10 @@ public class ContentController {
         }
         repository.deleteById(id);
     }
+
+    @GetMapping("/query/{query}")
+    public List<Content> getContentByQuery(@PathVariable String query) {
+        return repository.findAllByTitleContains(query);
+        // return repository.findAllByDescContains(query);
+    }
 }

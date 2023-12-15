@@ -37,6 +37,10 @@ public class ContentCollectionRepository {
         return contentList.stream().filter(c -> c.id().equals(content.id())).findFirst();
     }
 
+    public void deleteContent(Integer id) {
+        contentList.removeIf(c -> c.id().equals(id));
+    }
+
     public boolean isExisting(Integer id) {
         return contentList.stream().filter(c -> c.id().equals(id)).count() == 1;
     }

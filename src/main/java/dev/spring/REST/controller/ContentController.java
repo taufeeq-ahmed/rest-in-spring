@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,10 +48,20 @@ public class ContentController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateContent(@RequestBody Content content, @PathVariable Integer id) {
         if (!repository.isExisting(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item Not Found");
         }
         repository.updateContent(content, id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteContent(@PathVariable Integer id) {
+        if (!repository.isExisting(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item Not Found");
+        }
+        repository.deleteContent(id);
     }
 }

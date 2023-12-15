@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.spring.REST.model.Content;
 import dev.spring.REST.repository.ContentCollectionRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin
@@ -45,7 +46,7 @@ public class ContentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void postContent(@RequestBody Content content) {
+    public void postContent(@Valid @RequestBody Content content) {
         repository.save(content);
     }
 

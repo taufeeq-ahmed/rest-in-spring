@@ -70,7 +70,8 @@ public class ContentController {
 
     @GetMapping("/query/{query}")
     public List<Content> getContentByQuery(@PathVariable String query) {
-        return repository.findAllByTitleContains(query);
+        // return repository.findAllByTitleContains(query);
         // return repository.findAllByDescContains(query);
+        return repository.listByStatus(query);
     }
 }
